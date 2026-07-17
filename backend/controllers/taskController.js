@@ -1,4 +1,4 @@
-const Task = require('../models/Task');
+const Task = require('../models/task');
 
 // @desc    Get all tasks (with pagination, filtering, sorting)
 // @route   GET /api/tasks
