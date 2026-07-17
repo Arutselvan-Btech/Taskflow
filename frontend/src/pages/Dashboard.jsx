@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 function Dashboard() {
 
+const user = JSON.parse(localStorage.getItem("user"));
+
   const [tasks, setTasks] = useState(() => {
     const saved = localStorage.getItem("tasks");
     return saved ? JSON.parse(saved) : [];
@@ -78,6 +80,18 @@ const deleteTask = (id) => {
 
 };
 
+// CLEAR ALL TASKS
+const clearAllTasks = () => {
+  const confirmClear = window.confirm(
+    "Are you sure you want to delete all tasks?"
+  );
+
+  if (confirmClear) {
+    setTasks([]);
+    localStorage.removeItem("tasks");
+  }
+};
+
   // EDIT
   const editTask = (task) => {
     setEditId(task.id);
@@ -137,19 +151,22 @@ setTimeout(() => {
     style={{ cursor: "pointer" }}
   >
 
-    <div className="avatar">S</div>
+   <div className="avatar">
+  {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+</div>
 
     <div>
-      <h3>Senthil</h3>
-      <p>TaskFlow User</p>
+      <h3>{user?.name}</h3>
+      <p>{user?.email}</p>
     </div>
 
   </div>
 
   <button
     onClick={() => {
-      localStorage.removeItem("token");
-      window.location.href = "/";
+     localStorage.removeItem("token");
+localStorage.removeItem("user");
+window.location.href = "/";
     }}
   >
     Logout
@@ -160,7 +177,7 @@ setTimeout(() => {
     {/* Welcome Card */}
 
     <div className="welcome-card">
-      <h2>👋 Welcome Back, Senthil</h2>
+      <h1>👋 Welcome {user?.name}</h1>
     </div>
 
 
@@ -307,11 +324,12 @@ setTimeout(() => {
               <br />
 
               <button onClick={() => editTask(task)}>
-                Edit
+  Edit
+</button>
+               
+              <button onClick={() => deleteTask(task.id)}>
+              Delete
               </button>
-<               button onClick={() => deleteTask(task.id)}>
-                Delete
-                </button>
 
             </div>
 
@@ -324,17 +342,6 @@ setTimeout(() => {
     </div>
   );
 }
-
-const clearAllTasks = () => {
-  const confirmClear = window.confirm(
-    "Are you sure you want to delete all tasks?"
-  );
-
-  if (confirmClear) {
-    setTasks([]);
-    localStorage.removeItem("tasks");
-  }
-};
 
 
 export default Dashboard;
