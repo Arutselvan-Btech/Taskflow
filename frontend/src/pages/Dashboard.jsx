@@ -155,10 +155,10 @@ setTimeout(() => {
   {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
 </div>
 
-    <div>
-      <h3>{user?.name}</h3>
-      <p>{user?.email}</p>
-    </div>
+    <div className="profile-info">
+  <h3>{user?.name}</h3>
+  <p>{user?.email}</p>
+</div>
 
   </div>
 
